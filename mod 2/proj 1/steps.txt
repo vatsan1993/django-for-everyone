@@ -1,0 +1,47 @@
+this project is being done on python anywhere
+
+https://www.dj4e.com/assn/dj4e_install.md
+https://docs.djangoproject.com/en/4.2/intro/tutorial01/
+https://www.dj4e.com/assn/dj4e_errors.md
+Use the python version alternate tutorial or check the python available in /usr/bin 
+cd /usr/bin
+ls
+
+note: this is using venvwrapper module to create a virtual environment.
+
+Alternate tutorial:
+https://help.pythonanywhere.com/pages/FollowingTheDjangoTutorial/
+
+sample codes: https://github.com/csev/dj4e-samples
+
+
+commands:
+# setup virtual env and activate it
+python -m venv .venv
+.venv\Scripts\activate
+
+# install Django
+pip install django==version
+
+# creating a project
+django-admin startproject project_name # note: we cannot have a space or a minus for the project name
+
+# creating an app
+cd project_name # jump inside project folder
+python manage.py startapp app_name
+
+# getting help
+python manage.py # this will show all sub commands available for us
+
+# check for mistakes
+python manage.py check
+
+# migrating databases
+python manage.py migrate
+
+# not allowed urls should have a '*' in it.
+
+# running server
+python manage.py runserver
+
+
