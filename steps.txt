@@ -54,6 +54,7 @@ python manage.py sqlmigrate polls 0001
 python manage.py migrate
 
 Note: if you get any errors, delete the database file and the migrations and restart again
+https://www.dj4e.com/assn/dj4e_tut02.md?PHPSESSID=fb020aa4beb1f88f1c04d52a4973bc37
 
 
 # Django shell
@@ -142,8 +143,6 @@ True
 https://docs.djangoproject.com/en/4.2/ref/models/relations/
 
 
-
-
 # allowed hosts should have a '*' in it in the settings.py
 # change the timezone in the settings.py
 
@@ -152,6 +151,13 @@ python manage.py runserver
 
 
 
+# working with Django admin
+python manage.py createsuperuser
+
+# registering an app to admin
+in each app we will have admin.py.
+here we import the model and register
+admin.site.register(ModelClass)
 
 
 
