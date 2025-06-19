@@ -1,0 +1,16 @@
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li>
+            <!--<a href="/polls/{{ question.id }}/">{{question.question_text}}</a>-->
+            <!-- The following code will decouple the urls. -->
+            <!-- if the url is changed in the urls.py we dont need to change here. -->
+            <!--<a href = "{#{% url 'detail' question.id%} #}">{{question.question_text}}</a>-->
+            <!-- This is using the namespace polls to specify which app's detail url should be used. -->
+            <a href = "{% url 'polls:detail' question.id%}">{{ question.question_text }}</a
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
