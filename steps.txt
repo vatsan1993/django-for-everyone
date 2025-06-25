@@ -160,6 +160,10 @@ here we import the model and register
 admin.site.register(ModelClass)
 
 
+# run python file to load data from csv files.
+# note: the python file needs to be in the scripts folder in the project root
+python manage.py runscript file.py
+
 
 
 
