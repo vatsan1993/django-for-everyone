@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 # from django.http import Http404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Question, Choice
 from django.views import generic
@@ -53,6 +53,10 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
+def owner(request: HttpRequest) -> HttpResponse:
+    response = HttpResponse()
+    response.write("Hello, world. f5efd30f is the polls index.")
+    return response
 
 def vote(request, question_id):
     # return HttpResponse("You're voting on question %s." % question_id)
@@ -72,3 +76,4 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
