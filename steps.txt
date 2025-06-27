@@ -153,6 +153,8 @@ python manage.py runserver
 
 # working with Django admin
 python manage.py createsuperuser
+or
+python manage.py createsuperuser --username=joe --email=joe@example.com
 
 # registering an app to admin
 in each app we will have admin.py.
@@ -162,13 +164,23 @@ admin.site.register(ModelClass)
 
 # run python file to load data from csv files.
 # note: the python file needs to be in the scripts folder in the project root
+# needs django_extensions to be installed and added to installed apps.
 python manage.py runscript file.py
 
 
 
-
-
-
+# login and logout
+# include path(/accounts, "django.contrib.auth.urls") in app level urlpatterns 
+# this gives access to login and logout links that we can use reverse mapping in any view that we want.
+# we can alternatively use the {% url 'login' %}?next = {{newPath}}
+# if we want to redirect to same page, we can use {{request.path}}
+# if we want to use some other place in the ap {{appname:urlname}}
+# the next parameter tell where to redirect to after logging in
+# we will also have user object available for us in the html
+# the user object will have access to all the attributes along with is_authenticated attribute
+# we can use the request object to access the user who is logged in aswell.
+# It is always better to use a LoginRequriredMixin on a view to protect the page
+# the LoginRequriredMixin comes from django.contrib.auth.mixins. The class has to inherit the LoginRequriredMixin along with the View class
 
 
 
