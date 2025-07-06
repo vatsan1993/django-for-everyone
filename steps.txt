@@ -189,3 +189,16 @@ python manage.py runscript file.py
 
 
 # Note: remember to change the Database engine when pushing to  production
+
+
+
+
+
+
+
+Market app:
+https://github.com/csev/dj4e-market.git market
+
+python3.11 -m venv .ve52
+source ~/.ve52/bin/activate
+
