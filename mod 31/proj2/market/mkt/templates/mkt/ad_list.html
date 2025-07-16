@@ -1,0 +1,121 @@
+{% extends "base_menu.html" %}
+{% block content %}
+<h1>Ads</h1>
+<p>
+{% if ad_list %}
+<form>
+  <input type="text" placeholder="Search.." name="search"
+  {% if search_text %} value="{{ search_text }}" {% endif %}
+  >
+  <button type="submit"><i class="fa fa-search"></i></button>
+<a href="{% url 'mkt:all' %}"><i class="fa fa-undo"></i></a>
+</form>
+</form>
+<ul>
+  {% for ad in ad_list %}
+    <li>
+        <a href="{% url 'mkt:detail'  ad.id %}">{{ ad.title }}</a>
+        {% if ad.owner == user %}
+        (<a href="{% url 'mkt:update' ad.id %}">Edit</a> |
+        <a href="{% url 'mkt:delete' ad.id %}">Delete</a>)
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
+        <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+        <!--<a href="#" onclick=-->
+        <!--{#   "favPost('{% url 'mkt:ad_unfavorite' ad.id %}', {{ ad.id }} );return false;"  #}-->
+        <!--{#    {% if ad.id not in favorites %} style="display: none;" {% endif %}-->
+        <!--    id="favorite_star_{{ad.id}}"> #}-->
+        <!--<span class="fa-stack" style="vertical-align: middle;">-->
+        <!--<i class="fa fa-star fa-stack-1x" style="color: orange;"></i>-->
+        <!--<i class="fa fa-star-o fa-stack-1x"></i>-->
+        <!--</span>-->
+        <!--</a>-->
+        <!-- the second href -->
+        <!--<a href="#" onclick=-->
+        <!--{#      "favPost('{% url 'mkt:ad_favorite' ad.id%}', {{ ad.id }} );return false;" #}-->
+        <!--{#     {% if ad.id in favorites %} style="display: none;" {% endif %} #}-->
+        <!--    id="unfavorite_star_{{ad.id}}">-->
+        <!--<span class="fa-stack" style="vertical-align: middle;">-->
+        <!--<i class="fa fa-star fa-stack-1x" style="display: none; color: orange;"></i>-->
+        <!--<i class="fa fa-star-o fa-stack-1x"></i>-->
+        <!--</span>-->
+
+        <dj4e-favstar
+            onclick="favToggle(this, '{% url 'mkt:ad_toggle' ad.id %}');"
+            {% if ad.id in favorites %} fav =""  {% endif %}
+        >
+        </dj4e-favstar>
+        </a>
+        {% endif %}
+
+
+
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>There are no ads in the database.</p>
+{% endif %}
+</p>
+<p>
+<a href="{% url 'mkt:create' %}">Add an Ad</a> |
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}?next={% url 'mkt:all' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}?next={% url 'mkt:all' %}">Login</a>
+{% endif %}
+</p>
+
+<!--
+<script>
+function toggleInlineDisplay(star_id) {
+    var elem = document.getElementById(star_id);
+    if(window.getComputedStyle(elem).display == "inline") {
+        elem.style.display = 'none';
+        elem.dataset.previousDisplay = 'inline';
+    } else if(window.getComputedStyle(elem).display == "block") {
+        elem.style.display = 'none';
+        elem.dataset.previousDisplay = 'block';
+    } else {
+        console.log('prev', elem.dataset.previousDisplay);
+        if ( typeof elem.dataset.previousDisplay == 'string' ) {
+            elem.style.display = elem.dataset.previousDisplay
+        } else {
+            elem.style.display = 'inline';
+        }
+    }
+}
+
+function favPost(url, ad_id) {
+    console.log('POSTing to', url);
+    fetch(url, { method: 'POST', body: '{}' } )
+    .then((response) => {
+        console.log(url, 'finished');
+        toggleInlineDisplay("unfavorite_star_"+ad_id);
+        toggleInlineDisplay("favorite_star_"+ad_id);
+    }).catch((error) => {
+        alert('Url failed with '+error+' '+url);
+    });
+}
+-->
+
+<script>
+function favToggle(element, url) {
+    console.log('POSTing to', url);
+    fetch(url, { method: 'POST', body: '{}' } )
+    .then((response) => {
+        console.log(url, 'success');
+        element.toggleAttribute('fav');
+    }).catch((error) => {
+        alert('Url failed with '+error+' '+url);
+    });
+}
+</script>
+<script type="module" src="/site/wc/dj4e-favstar.js"></script>
+</script>
+
+
+
+{% endblock %}
